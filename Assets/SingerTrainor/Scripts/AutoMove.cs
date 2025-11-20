@@ -39,7 +39,7 @@ public class AutoMove : MonoBehaviour
         // Vérifie s'il ne bouge plus (pour éviter des bugs de très petite distance)
         if (isPathCompleted) return;
 
-        if (agent.velocity.sqrMagnitude == 0f || Input.GetKeyDown(KeyCode.N))
+        if (agent.velocity.sqrMagnitude == 0f)
             {
                 Debug.Log("N pressé");
                 GoToNextPointInPath();
