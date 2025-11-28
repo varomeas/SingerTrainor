@@ -7,8 +7,6 @@ using UnityEngine.UIElements;
 public class ChangeEnvironment : MonoBehaviour
 {
     public List<GameObject> modelPrefabs;   // Tes prefabs
-    public Transform spawnPoint;            // O˘ placer le modËle instanciÈ
-
     private GameObject currentModel;        // Instance en cours
     private DropdownField dropdown;
 
@@ -24,32 +22,40 @@ public class ChangeEnvironment : MonoBehaviour
         foreach (var prefab in modelPrefabs)
             dropdown.choices.Add(prefab.name);
 
-        // SÈlection initiale
         dropdown.value = dropdown.choices[0];
 
-        // Abonne l'ÈvÈnement
         dropdown.RegisterValueChangedCallback(evt => LoadModel(evt.newValue));
 
-        // Charge le premier modËle
         LoadModel(dropdown.value);
     }
 
     private void LoadModel(string modelName)
     {
-        // DÈtruit l'ancien modËle
         if (currentModel != null)
             Destroy(currentModel);
 
-        // Trouve le prefab correspondant
-        var prefab = modelPrefabs.Find(p => p.name == modelName);
+        // Trouve le prefab
+        GameObject prefab = modelPrefabs.Find(p => p.name == modelName);
 
-        if (prefab != null)
+        if (prefab == null)
         {
-            currentModel = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
+            Debug.LogWarning("Prefab introuvable : " + modelName);
+            return;
+        }
+
+        // Cherche le Transform "SpawnPoint" dans le prefab
+        Transform spawnPoint = prefab.transform.Find("SpawnPoint");
+
+        if (spawnPoint == null)
+        {
+            Debug.LogWarning("Pas de SpawnPoint dans le prefab : " + prefab.name);
+            // Si pas trouv√©, instantiate au (0,0,0)
+            currentModel = Instantiate(prefab, Vector3.zero, Quaternion.identity);
         }
         else
         {
-            Debug.LogWarning("Prefab introuvable pour : " + modelName);
+            // Instantie √† la position du SpawnPoint du prefab
+            currentModel = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
         }
     }
 }

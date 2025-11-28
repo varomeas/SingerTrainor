@@ -1,16 +1,27 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <ui:Label text="Menu sélection" style="font-size: 100px; -unity-font-style: bold; -unity-font-definition: url(&quot;project://database/Library/unity%20default%20resources?fileID=10102&amp;guid=0000000000000000e000000000000000&amp;type=0#LegacyRuntime&quot;); -unity-text-align: upper-center; color: rgb(255, 255, 255);" />
-    <ui:VisualElement style="flex-grow: 1; align-items: auto; align-self: auto; top: auto; border-top-width: 500px; border-bottom-width: 500px; flex-direction: row; flex-wrap: nowrap; justify-content: space-around; font-size: 50px; color: rgb(255, 255, 255);">
-        <ui:GroupBox name="Environnement" style="justify-content: flex-start; align-items: flex-start; align-self: flex-start; flex-direction: column;">
+    <ui:VisualElement style="flex-grow: 1; align-items: auto; align-self: center; top: auto; border-top-width: 500px; border-bottom-width: 500px; flex-direction: column; flex-wrap: nowrap; justify-content: space-between; font-size: 50px; color: rgb(255, 255, 255);">
+        <ui:GroupBox name="Environnement" style="justify-content: flex-start; align-items: flex-start; align-self: flex-start; flex-direction: column; border-bottom-width: 40px;">
             <ui:Label text="Selectionner l&apos;environnement souhaité" style="font-size: 50px; color: rgb(255, 255, 255);" />
             <ui:DropdownField label="Environnement" name="modelSelector" view-data-key="environment" focusable="false" choices="Model A,Model B" style="font-size: 50px; height: 76px; width: 996px; color: rgb(255, 255, 255); flex-direction: row; align-items: stretch; justify-content: space-around; align-self: stretch;" />
         </ui:GroupBox>
-        <ui:GroupBox name="Public" style="align-self: flex-start;">
+        <ui:GroupBox name="Public" style="align-self: flex-start; border-bottom-width: 40px;">
             <ui:Label text="Selectionner le mode du public" style="font-size: 50px; color: rgb(255, 255, 255);" />
-            <ui:RadioButtonGroup>
-                <ui:RadioButton label="Examen" value="false" />
-                <ui:RadioButton label="Répétition" />
-                <ui:RadioButton label="Représentation" name="representation" value="false" />
+            <ui:RadioButtonGroup name="publicModeSelector">
+                <ui:RadioButton label="Représentation" value="false" style="flex-direction: row-reverse; align-items: center; justify-content: space-evenly; align-self: stretch;" />
+                <ui:RadioButton label="Examen" value="true" style="flex-direction: row-reverse;" />
+            </ui:RadioButtonGroup>
+        </ui:GroupBox>
+        <ui:GroupBox name="Lumieres">
+            <ui:Label text="Les lumières de la salle sont elles allumées?" />
+            <ui:RadioButtonGroup name="roomLights" style="border-bottom-width: 39px;">
+                <ui:RadioButton label="Oui" toggle-on-label-click="false" style="flex-direction: row;" />
+                <ui:RadioButton label="Non" />
+            </ui:RadioButtonGroup>
+            <ui:Label text="Les projecteurs sont-ils allumés?" style="-unity-text-align: upper-left; flex-direction: row-reverse;" />
+            <ui:RadioButtonGroup name="bigLights">
+                <ui:RadioButton label="Oui" value="false" />
+                <ui:RadioButton label="Non" value="true" />
             </ui:RadioButtonGroup>
         </ui:GroupBox>
     </ui:VisualElement>
